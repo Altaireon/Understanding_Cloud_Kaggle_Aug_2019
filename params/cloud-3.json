@@ -1,0 +1,82 @@
+{
+    "name": "understanding_cloud_organization",
+    "id": "3",
+    "DATA_DIR": "data/",
+    "seed": 42,
+    "logger_name": "UCloudOrg",
+    "test_csv": "sample_submission.csv",
+    "train_csv": "train.csv",
+    "valid_size": 0,
+    "device": "cpu",
+    "num_epochs": 20,
+    "kfold": 3,
+    "sample_data_train": 0,
+    "parallelize": false,
+	"original_size": [1400,2100],
+	"head":null,
+	"tail":null,
+    "path":{
+                "train": "train_images/",
+                "valid": "train_images/",
+                "test": "test_images/"
+            },
+    "batch_size": [1,1,1],
+    "threshold": 0.5,
+    "visualize":{
+                    "train":{ "sample":5,
+                            "save_path": "visualize/",
+                            "image_path": "train_images/"
+                        },
+                    "test":{ "sample":5,
+                            "save_path": "visualize_test/",
+                            "image_path": "test_images/"
+                        }
+                },
+    "preprocess":{
+    	    		"input_size": [384,576],
+    	    		"crop_size": [384,576],
+    	    		"test_size": [384,576]
+        		},
+    "postprocess":{
+    	              "threshold_class": [0.6,0.6,0.6,0.6],
+    	              "threshold_pixel": [0.6,0.6,0.6,0.6],
+    	              "min_area": [10000,10000,10000,10000],
+    	              "sample": "2"
+                  },
+    "model":{	
+                "gr_accum":4,
+                "encoder": "efficientnet-b2",
+                "encoder_weights": "imagenet",
+                "activation": "sigmoid",
+                "early_stopping": -1,
+                "en_params":{
+                             "lr": {
+                                    "0.01": 5,
+                                    "0.001": 10,
+                                    "0.0001": 5
+                    			  }
+                			},
+                "de_params":{
+                             "lr": {
+                                    "0.1": 5,
+                                    "0.01": 10,
+                                    "0.001": 5
+                    			   }
+                            }
+    		},
+    "inference_model":{
+                        "preds_path":null,
+                        "ensemble_type": null,
+                        "ensemble_criterion":[null,null,null],
+                        "ensemble_threshold":[null,null,null],
+                        "models": ["3"],
+                        "type": ["mean"],
+                        "path":[["fold0","fold1","fold2"]],
+                        "criterion":[[2,2,2,2,2]],
+                        "threshold":[[null,null,null,null,null]],
+                        "mask_size":[350,525]
+                    },
+    "num_class": 4,
+    "optimizer": {},
+    "callback": ""
+}
